@@ -8,7 +8,7 @@ export default class CardsList extends Component {
             <>
             <h2 className="mx-10 text-2xl font-bold leading-7 text-gray-800 sm:truncate sm:text-3xl sm:tracking-tight">Cards</h2>
             <div className="justify-items-center grid grid-cols-4 gap-3">
-                {data.products.map((item) => (
+                {data.products?.map((item) => (
                 <Card
                     key={item.id}
                     title={item.title}

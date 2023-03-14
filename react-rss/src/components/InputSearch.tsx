@@ -1,30 +1,36 @@
 import React, { Component, ReactNode } from "react";
 
-type SearchProps = {
-    value: string;
+type SearchInput = {
+    searchValue: string;
 }
 
-export class Search extends Component<SearchProps> {
+type SearchProps = Record<string, never>
+
+export class Search extends Component<SearchProps, SearchInput> {
     constructor(props: SearchProps) {
         super(props);
+        this.changeHandler = this.changeHandler.bind(this);
         this.state = {
-            searchValue: localStorage.getItem('') || ''
-        }
+            searchValue: ''
+        };
     }
 
     componentDidMount() {
-        
+        const storageValue = localStorage.getItem('search') || '';
+        if (storageValue || storageValue === ''){
+            this.setState({ searchValue: storageValue });
+        }
     }
     
-    componentWillUnmount() {
-        
+    componentDidUpdate() {
+        localStorage.setItem('search', this.state.searchValue);
     }
 
     changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
             searchValue: event.target.value
-        })
-    }
+        });
+    };
 
     render(): ReactNode {
         return (
@@ -56,6 +62,6 @@ export class Search extends Component<SearchProps> {
                     </div>
                 </div>
             </form>
-        )
+        );
     }
 }
