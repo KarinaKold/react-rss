@@ -4,7 +4,7 @@ export class Main extends Component {
     render(): React.ReactNode {
         return (
             <main>
-                <div className="container"></div>
+                <div className="overflow-hidden"></div>
             </main>
         )
     }
