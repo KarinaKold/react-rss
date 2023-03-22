@@ -1,4 +1,4 @@
-import { IData } from "types/types";
+import { IData } from 'types/types';
 
 export const data: IData = {
   products: [
