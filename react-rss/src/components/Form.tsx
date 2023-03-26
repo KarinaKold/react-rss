@@ -15,12 +15,19 @@ interface FormProps {
 }
 
 interface FormState {
-  isValid: boolean;
+  usernameValid: boolean;
+  bdayValid: boolean;
+  fileValid: boolean;
 }
 
 export default class FormModel extends Component<FormProps, FormState> {
   constructor(props: FormProps) {
     super(props);
+    this.state = {
+      usernameValid: false,
+      bdayValid: false,
+      fileValid: false,
+    };
   }
 
   usernameInput: React.RefObject<HTMLInputElement> = React.createRef();
@@ -30,6 +37,15 @@ export default class FormModel extends Component<FormProps, FormState> {
   maleInput: React.RefObject<HTMLInputElement> = React.createRef();
   fileInput: React.RefObject<HTMLInputElement> = React.createRef();
   agreementCheck: React.RefObject<HTMLInputElement> = React.createRef();
+
+  clearForm() {
+    if (this.usernameInput.current) this.usernameInput.current.value = '';
+    if (this.bdayInput.current) this.bdayInput.current.value = '';
+    if (this.maleInput.current) this.maleInput.current.checked = false;
+    if (this.femaleInput.current) this.femaleInput.current.checked = false;
+    if (this.fileInput.current) this.fileInput.current.value = '';
+    if (this.agreementCheck.current) this.agreementCheck.current.checked = false;
+  }
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,6 +64,7 @@ export default class FormModel extends Component<FormProps, FormState> {
       file,
     };
     this.props.onSubmit(newCard);
+    this.clearForm();
   };
 
   render(): React.ReactNode {
@@ -60,6 +77,7 @@ export default class FormModel extends Component<FormProps, FormState> {
             ref={this.usernameInput}
             minLength={2}
             id="name"
+            required
             className="block min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
           />
           <br />
@@ -68,21 +86,22 @@ export default class FormModel extends Component<FormProps, FormState> {
           <br />
           <label htmlFor="country">Country </label>
           <select ref={this.countrySelect} className="" required id="country" name="country">
-            <option value="narnia">Narnia</option>
-            <option value="gondor">Gondor</option>
-            <option value="neverland">Neverland</option>
+            <option value="Narnia">Narnia</option>
+            <option value="Gondor">Gondor</option>
+            <option value="Neverland">Neverland</option>
           </select>
           <br />
           <div>
-            <p>Gender </p>
-            <label htmlFor="male">Male</label>
-            <input ref={this.maleInput} name="sex" value="male" required type="radio" />
-            <label htmlFor="female">Female</label>
-            <input ref={this.femaleInput} name="sex" value="female" required type="radio" />
+            <p>Gender:</p>
+            <label htmlFor="male">Male </label>
+            <input type="radio" ref={this.maleInput} value="male" name="gender" required />
+            <br />
+            <label htmlFor="female">Female </label>
+            <input type="radio" ref={this.femaleInput} value="female" name="gender" required />
           </div>
           <br />
           <label>Upload file </label>
-          <input type="file" ref={this.fileInput} required />
+          <input type="file" ref={this.fileInput} accept=".jpg, .jpeg, .png" required />
           <br />
           <label>You agree to submit your data </label>
           <input type="checkbox" ref={this.agreementCheck} required />

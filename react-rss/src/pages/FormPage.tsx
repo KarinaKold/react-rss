@@ -29,7 +29,7 @@ export default class Form extends Component<UserProps, UserState> {
       <>
         <h2 className="text-center text-3xl my-5">Form</h2>
         <FormModel onSubmit={this.onSubmit} />
-        <div>
+        <div className="justify-items-center grid grid-cols-4 gap-3">
           {this.state.cards.map((item) => (
             <FormCard
               id={item.id}
