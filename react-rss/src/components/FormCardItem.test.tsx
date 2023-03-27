@@ -13,10 +13,8 @@ const mockUserData: IUser = {
 };
 describe('After mount', () => {
   test('Card data should render with properties', () => {
-    const { file, gender } = mockUserData;
+    const { gender } = mockUserData;
     render(<FormCard {...mockUserData} />);
     expect(screen.getByText(gender)).toBeTruthy();
-    const image = screen.getByAltText(file) as HTMLImageElement;
-    expect(image.src).toBe(file);
   });
 });

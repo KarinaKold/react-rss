@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { validDate, validFile, validName } from '../utils/validation';
+import Message from './Message';
 
 export interface IUser {
   id: number;
@@ -20,6 +21,7 @@ interface FormState {
   bdayValid: boolean;
   fileValid: boolean;
   agreeValid: boolean;
+  isMessage: boolean;
 }
 
 export default class FormModel extends Component<FormProps, FormState> {
@@ -30,6 +32,7 @@ export default class FormModel extends Component<FormProps, FormState> {
       bdayValid: true,
       fileValid: true,
       agreeValid: true,
+      isMessage: false,
     };
   }
 
@@ -40,6 +43,10 @@ export default class FormModel extends Component<FormProps, FormState> {
   maleInput: React.RefObject<HTMLInputElement> = React.createRef();
   fileInput: React.RefObject<HTMLInputElement> = React.createRef();
   agreementCheck: React.RefObject<HTMLInputElement> = React.createRef();
+
+  closeMessage = () => {
+    this.setState({ isMessage: false });
+  };
 
   checkValid() {
     const username = validName(this.usernameInput.current?.value ?? '');
@@ -84,6 +91,7 @@ export default class FormModel extends Component<FormProps, FormState> {
     };
     this.props.onSubmit(newCard);
     this.clearForm();
+    this.setState({ isMessage: true });
   };
 
   render(): React.ReactNode {
@@ -145,6 +153,7 @@ export default class FormModel extends Component<FormProps, FormState> {
           </button>
         </form>
         <hr />
+        {this.state.isMessage && <Message handleClose={this.closeMessage} />}
       </>
     );
   }
