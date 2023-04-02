@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { validDate, validFile, validName } from '../utils/validation';
+import { validDate, validFile, validName, validGender, validCountry } from '../utils/validation';
 import { Message } from './Message';
 
 export interface IUser {
@@ -9,7 +9,7 @@ export interface IUser {
   birthday: string;
   country: string;
   gender: string;
-  file: string;
+  file: FileList;
   agreement?: boolean;
 }
 
@@ -32,24 +32,21 @@ export const FormModel = (props: FormProps) => {
     formState: { errors },
     reset,
   } = useForm<IUser>({ reValidateMode: 'onSubmit' });
-  // const [name, setName] = useState('');
+
+  // const [message, setMessage] = useState({isMessage: ''});
   // isMessage: false,
 
   // const closeMessage = () => {
   //   setState({ isMessage: false });
   // };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>, item: IUser) => {
-    event.preventDefault();
-    // const isValid = checkValid();
-
+  const onSubmit = (item: IUser) => {
     const username = item.username;
     const birthday = item.birthday;
     const country = item.country;
     const gender = item.gender;
     const file = URL.createObjectURL(item.file[0]);
 
-    // if (!isValid) return;
     const newCard: IUser = {
       id: Date.now(),
       username,
@@ -58,8 +55,10 @@ export const FormModel = (props: FormProps) => {
       gender,
       file,
     };
-
     props.onSubmit(newCard);
+
+    // setMessage({ ...message, isMessage: ``})
+
     reset();
     // this.setState({ isMessage: true });
   };
@@ -94,7 +93,10 @@ export const FormModel = (props: FormProps) => {
             },
           })}
         />
-        {errors.birthday && <span className="text-red-500">Choose date later then 1910</span>}
+        <br />
+        {errors.birthday && (
+          <span className="text-red-500">Choose date later then 1910, not tomorrow</span>
+        )}
         <br />
         <label htmlFor="country">Country </label>
         <select
@@ -102,14 +104,17 @@ export const FormModel = (props: FormProps) => {
           {...register('country', {
             required: true,
             validate: {
-              validate: (value) => validDate(value),
+              validate: (value) => validCountry(value),
             },
           })}
         >
+          <option value="">-</option>
           <option value="Narnia">Narnia</option>
           <option value="Gondor">Gondor</option>
           <option value="Neverland">Neverland</option>
         </select>
+        <br />
+        {errors.country && <span className="text-red-500">Choose your country</span>}
         <br />
         <div>
           <p>Gender:</p>
@@ -120,7 +125,7 @@ export const FormModel = (props: FormProps) => {
             {...register('gender', {
               required: true,
               validate: {
-                validate: (value) => validDate(value),
+                validate: (value) => validGender(value),
               },
             })}
           />
@@ -132,12 +137,12 @@ export const FormModel = (props: FormProps) => {
             {...register('gender', {
               required: true,
               validate: {
-                validate: (value) => validDate(value),
+                validate: (value) => validGender(value),
               },
             })}
           />
         </div>
-        {errors.gender && <span className="color-red">Error! You need to choose new or old!</span>}
+        {errors.gender && <span className="text-red-500">You need to choose your gender!</span>}
         <br />
         <label>Upload file </label>
         <input
@@ -146,10 +151,11 @@ export const FormModel = (props: FormProps) => {
           {...register('file', {
             required: true,
             validate: {
-              validate: (value) => validFile(value),
+              validate: (value) => validFile(value[0].name),
             },
           })}
         />
+        <br />
         {errors.file && (
           <span className="text-red-500">Check your image file: jpg, jpeg or png</span>
         )}
@@ -164,7 +170,7 @@ export const FormModel = (props: FormProps) => {
             },
           })}
         />
-        {errors.agreement && <span className="text-red-500">It is necessary!</span>}
+        {errors.agreement && <span className="text-red-500"> It is necessary!</span>}
         <br />
         <button
           type="submit"
@@ -174,7 +180,7 @@ export const FormModel = (props: FormProps) => {
         </button>
       </form>
       <hr />
-      {isMessage && <Message handleClose={closeMessage} />}
+      {/* {isMessage && <Message handleClose={closeMessage} />} */}
     </>
   );
 };

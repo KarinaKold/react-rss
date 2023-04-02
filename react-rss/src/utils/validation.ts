@@ -17,3 +17,13 @@ export const validFile = (fileName: string) => {
   const regex = new RegExp(/\.(jpe?g|png)/i);
   return regex.test(fileName);
 };
+
+export const validGender = (name: string) => {
+  if (name.length === 0) return false;
+  return true;
+};
+
+export const validCountry = (name: string) => {
+  if (name.length === 0) return false;
+  return true;
+};
