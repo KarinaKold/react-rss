@@ -8,8 +8,8 @@ export interface IProduct {
   thumbnail: string;
   images?: string[];
   category?: string;
-  stock?: number;
-  discountPercentage?: number;
+  stock: number;
+  discountPercentage: number;
 }
 
 export interface IData {

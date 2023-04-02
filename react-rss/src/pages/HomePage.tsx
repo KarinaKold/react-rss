@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search } from '../components/InputSearch';
-import CardList from '../components/CardList';
+import { CardList } from '../components/CardList';
 
 export default function Home() {
   return (
