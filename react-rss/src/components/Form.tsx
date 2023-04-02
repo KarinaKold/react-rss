@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { validDate, validFile, validName, validGender, validCountry } from '../utils/validation';
-import { Message } from './Message';
 
 export interface IUser {
   id: number;
@@ -17,14 +16,6 @@ interface FormProps {
   onSubmit: (newCard: IUser) => void;
 }
 
-// interface FormState {
-//   usernameValid: boolean;
-//   bdayValid: boolean;
-//   fileValid: boolean;
-//   agreeValid: boolean;
-//   isMessage: boolean;
-// }
-
 export const FormModel = (props: FormProps) => {
   const {
     register,
@@ -33,19 +24,14 @@ export const FormModel = (props: FormProps) => {
     reset,
   } = useForm<IUser>({ reValidateMode: 'onSubmit' });
 
-  // const [message, setMessage] = useState({isMessage: ''});
-  // isMessage: false,
-
-  // const closeMessage = () => {
-  //   setState({ isMessage: false });
-  // };
+  const [message, setMessage] = useState({ isMessage: '' });
 
   const onSubmit = (item: IUser) => {
     const username = item.username;
     const birthday = item.birthday;
     const country = item.country;
     const gender = item.gender;
-    const file = URL.createObjectURL(item.file[0]);
+    const file = URL.createObjectURL(item.file[0]) as unknown as FileList;
 
     const newCard: IUser = {
       id: Date.now(),
@@ -57,10 +43,11 @@ export const FormModel = (props: FormProps) => {
     };
     props.onSubmit(newCard);
 
-    // setMessage({ ...message, isMessage: ``})
-
+    setMessage({ ...message, isMessage: `Success!` });
     reset();
-    // this.setState({ isMessage: true });
+    setTimeout(() => {
+      setMessage({ ...message, isMessage: `` });
+    }, 1000);
   };
 
   return (
@@ -180,7 +167,11 @@ export const FormModel = (props: FormProps) => {
         </button>
       </form>
       <hr />
-      {/* {isMessage && <Message handleClose={closeMessage} />} */}
+      {message.isMessage && (
+        <div className="flex justify-center text-green-700">
+          <b>{message.isMessage}</b>
+        </div>
+      )}
     </>
   );
 };
