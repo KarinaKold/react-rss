@@ -5,7 +5,7 @@ import Home from './pages/HomePage';
 import About from './pages/AboutPage';
 import NotFound from './pages/NotFoundPage';
 import { Header } from './components/Header';
-import Form from './pages/FormPage';
+import { Form } from './pages/FormPage';
 
 // class App extends Component {
 function App() {

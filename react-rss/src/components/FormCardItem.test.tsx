@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IUser } from './Form';
-import FormCard from './FormCardItem';
+import { FormCard } from './FormCardItem';
 
 const mockUserData: IUser = {
   id: 1,

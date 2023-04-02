@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Message from './Message';
+import { Message } from './Message';
 
 describe('Alert component', () => {
   test('close', async () => {
