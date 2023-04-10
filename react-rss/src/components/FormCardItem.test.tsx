@@ -8,8 +8,8 @@ const mockUserData: IUser = {
   username: 'karina',
   birthday: '1996-01-01',
   country: 'Narnia',
-  file: '',
   gender: 'female',
+  file: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
 };
 describe('After mount', () => {
   test('Card data should render with properties', () => {

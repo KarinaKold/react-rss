@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export const Search = () => {
+type SearchProps = {
+  setInput: (text: string) => void;
+};
+
+export const Search = ({ setInput }: SearchProps) => {
   const [searchValue, setSearchValue] = useState<string>(localStorage.getItem('search') || '');
   const storageValue = useRef<string>();
 
@@ -18,8 +22,14 @@ export const Search = () => {
     setSearchValue(event.target.value);
   };
 
+  const handleSearchSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    localStorage.setItem('search', searchValue || '');
+    setInput(searchValue);
+  };
+
   return (
-    <form data-testid="search-form" className="flex justify-center">
+    <form onSubmit={handleSearchSubmit} data-testid="search-form" className="flex justify-center">
       <div className="mb-3 xl:w-96">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <input
@@ -31,9 +41,9 @@ export const Search = () => {
             aria-label="Search"
             aria-describedby="button-addon2"
           />
-          <span
+          <button
+            onClick={handleSearchSubmit}
             className="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
-            id="basic-addon2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +57,7 @@ export const Search = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </span>
+          </button>
         </div>
       </div>
     </form>
