@@ -1,20 +1,17 @@
-import { FormModel, IUser } from '../components/Form';
+import React from 'react';
+import { useAppSelector } from '../store/store';
+import { FormModel } from '../components/Form';
 import { FormCard } from '../components/FormCardItem';
-import React, { useState } from 'react';
 
 export const Form = () => {
-  const [cards, setCards] = useState<IUser[]>([]);
-
-  const onSubmit = (newCard: IUser) => {
-    setCards((prevState) => [...prevState, newCard]);
-  };
+  const formList = useAppSelector((state) => state.form);
 
   return (
     <>
       <h2 className="text-center text-3xl my-5">Form</h2>
-      <FormModel onSubmit={onSubmit} />
+      <FormModel />
       <div className="justify-items-center grid grid-cols-4 gap-3">
-        {cards.map((item) => (
+        {formList.map((item) => (
           <FormCard
             id={item.id}
             username={item.username}

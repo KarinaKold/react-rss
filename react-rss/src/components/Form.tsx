@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { validDate, validFile, validName, validGender, validCountry } from '../utils/validation';
+import { useAppDispatch } from '../store/store';
+import { addToList } from '../store/formSlice';
 
 export interface IUser {
   id: number;
@@ -12,17 +14,15 @@ export interface IUser {
   agreement?: boolean;
 }
 
-interface FormProps {
-  onSubmit: (newCard: IUser) => void;
-}
-
-export const FormModel = (props: FormProps) => {
+export const FormModel = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<IUser>({ reValidateMode: 'onSubmit' });
+
+  const dispatch = useAppDispatch();
 
   const [message, setMessage] = useState({ isMessage: '' });
 
@@ -32,16 +32,16 @@ export const FormModel = (props: FormProps) => {
     const country = item.country;
     const gender = item.gender;
     const file = URL.createObjectURL(item.file[0]) as unknown as FileList;
-
-    const newCard: IUser = {
-      id: Date.now(),
-      username,
-      birthday,
-      country,
-      gender,
-      file,
-    };
-    props.onSubmit(newCard);
+    dispatch(
+      addToList({
+        id: Date.now(),
+        username,
+        birthday,
+        country,
+        gender,
+        file,
+      })
+    );
 
     setMessage({ ...message, isMessage: `Success!` });
     reset();

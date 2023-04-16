@@ -3,9 +3,8 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import { changeSearchText } from '../store/searchSlice';
 
 export const Search = () => {
-  const [searchValue, setSearchValue] = useState<string>(
-    useAppSelector((state) => state.search.searchValue)
-  );
+  const searchTextSelector = useAppSelector((state) => state.search);
+  const [searchValue, setSearchValue] = useState(searchTextSelector.searchValue);
   const dispatch = useAppDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

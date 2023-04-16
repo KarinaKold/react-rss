@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from 'components/Form';
+import { IUser } from '../components/Form';
 
 const formState: IUser[] = [];
 

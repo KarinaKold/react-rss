@@ -7,8 +7,8 @@ import { useGetProductQuery } from '../store/service';
 import { useAppSelector } from '../store/store';
 
 export default function Home() {
-  const searchTextSelector = useAppSelector((state) => state.search.searchValue);
-  const { isLoading, data: products } = useGetProductQuery(searchTextSelector);
+  const searchTextSelector = useAppSelector((state) => state.search);
+  const { isLoading, data: products } = useGetProductQuery(searchTextSelector.searchValue);
 
   return (
     <>
