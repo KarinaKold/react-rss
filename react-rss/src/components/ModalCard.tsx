@@ -1,7 +1,6 @@
-import { getProductDescription } from '../api/api';
-import React, { useEffect, useState } from 'react';
-import { IProduct } from '../types/types';
+import React from 'react';
 import Loader from './Loader';
+import { useGetProductDescriptionQuery } from '../store/service';
 
 type ProductModalProps = {
   active: boolean;
@@ -10,22 +9,7 @@ type ProductModalProps = {
 };
 
 export default function ModalCard({ active, setActive, ID }: ProductModalProps) {
-  const [load, setLoad] = useState(true);
-  const [card, setCard] = useState<IProduct>();
-
-  useEffect(() => {
-    setLoad(true);
-    const fetchProduct = async () => {
-      try {
-        const currentCard = await getProductDescription(ID);
-        setCard(currentCard);
-        setLoad(false);
-      } catch (err) {
-        console.log('Error! Not found');
-      }
-    };
-    fetchProduct();
-  }, [ID]);
+  const { isLoading, data: card } = useGetProductDescriptionQuery(ID);
 
   return (
     <div
@@ -36,7 +20,7 @@ export default function ModalCard({ active, setActive, ID }: ProductModalProps) 
         <button className="product-modal__btn" onClick={() => setActive(false)}>
           &#10006;
         </button>
-        {load || card === undefined ? (
+        {isLoading || card === undefined ? (
           <Loader />
         ) : (
           <>

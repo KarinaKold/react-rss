@@ -5,13 +5,13 @@ export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://dummyjson.com/' }),
   endpoints: (builder) => ({
-    getProduct: builder.query<IProduct, string>({
+    getProduct: builder.query<IProduct[], string>({
       query: (search) => `products/${search}`,
     }),
-    getProductDescription: builder.query<IProduct, string>({
-      query: (id) => `products/${id}`,
+    getProductDescription: builder.query<IProduct, number>({
+      query: (ID) => `products/${ID}`,
     }),
   }),
 });
 
-export const { useGetProductQuery } = productApi;
+export const { useGetProductQuery, useGetProductDescriptionQuery } = productApi;
