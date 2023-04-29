@@ -1,95 +1,40 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { data } from '../api/data';
+import { render, screen, waitFor } from '@testing-library/react';
 import Card from './Card';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
+import userEvent from '@testing-library/user-event';
 
 describe('when rendered', () => {
-  const productStab = data.products[0];
-  const { title, thumbnail, price, description, rating, brand, id } = productStab;
-
-  test('Should have product title', () => {
+  const testProduct = {
+    id: 1,
+    title: 'product',
+    description: 'description',
+    price: 1,
+    discountPercentage: 1,
+    rating: 1,
+    stock: 1,
+    brand: 'brand',
+    category: 'category',
+    thumbnail: 'https://example.com/test.jpg',
+  };
+  test('Should use with Provider', async () => {
     render(
-      <Card
-        id={id}
-        title={title}
-        brand={brand}
-        description={description}
-        price={price}
-        rating={rating}
-        thumbnail={thumbnail}
-        stock={0}
-        discountPercentage={0}
-      />
+      <Provider store={store}>
+        <Card product={testProduct} />
+      </Provider>
     );
-    expect(screen.getByText(new RegExp(title, 'i'))).toBeTruthy();
+    const showModalButton = screen.getByRole('button');
+    await userEvent.click(showModalButton);
+
+    await waitFor(() => {
+      const divModal = screen.getByTestId('modal');
+      expect(divModal).toBeInTheDocument();
+    });
   });
-
-  test('Should have product brand', () => {
-    render(
-      <Card
-        id={id}
-        title={title}
-        brand={brand}
-        description={description}
-        price={price}
-        rating={rating}
-        thumbnail={thumbnail}
-        stock={0}
-        discountPercentage={0}
-      />
-    );
-    expect(screen.queryAllByText(new RegExp(brand, 'i'))).toBeTruthy();
-  });
-
-  test('Should have product description', () => {
-    render(
-      <Card
-        id={id}
-        title={title}
-        brand={brand}
-        description={description}
-        price={price}
-        rating={rating}
-        thumbnail={thumbnail}
-        stock={0}
-        discountPercentage={0}
-      />
-    );
-    expect(screen.getByText(new RegExp(description, 'i'))).toBeTruthy();
-  });
-
-  test('Should have product price', () => {
-    render(
-      <Card
-        id={id}
-        title={title}
-        brand={brand}
-        description={description}
-        price={price}
-        rating={rating}
-        thumbnail={thumbnail}
-        stock={0}
-        discountPercentage={0}
-      />
-    );
-    expect(screen.getByText(new RegExp(price.toString(), 'i'))).toBeTruthy();
-  });
-
-  test('Should have product img', () => {
-    render(
-      <Card
-        id={id}
-        title={title}
-        brand={brand}
-        description={description}
-        price={price}
-        rating={rating}
-        thumbnail={thumbnail}
-        stock={0}
-        discountPercentage={0}
-      />
-    );
-    const img = screen.getByAltText(new RegExp(title, 'i')) as HTMLImageElement;
-    expect(img.src).toBe(thumbnail);
+  test('Should have product', () => {
+    render(<Card product={testProduct} />);
+    expect(screen.getByText(testProduct.title)).toBeInTheDocument();
+    expect(screen.getByText(`Brand: ${testProduct.brand}`)).toBeInTheDocument();
   });
 });

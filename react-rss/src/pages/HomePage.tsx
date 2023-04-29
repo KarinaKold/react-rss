@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <h2 className="text-center text-2xl">Home</h2>
+      <h2>Home</h2>
       <div className="m-2">
         <Search />
       </div>

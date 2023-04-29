@@ -1,4 +1,4 @@
-import { IProduct } from 'types/types';
+import { IProduct } from '../types/types';
 
 async function getProducts(search: string): Promise<IProduct[]> {
   const res = await fetch(`https://dummyjson.com/products/search?q=${search}`);
