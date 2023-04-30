@@ -39,6 +39,23 @@ a {
 .header__menu {
     display: flex;
     margin: 0 40px;
+    gap: 40px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+}
+
+.product-container {
+    justify-content: center;
+}
+
+.product-content {
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 3;
+    gap: 2em;
 }
 
 .product-modal {
@@ -80,4 +97,38 @@ a {
 .product-modal__info {
     background-color: rgb(255, 255, 255);
     padding: 5px;
+}
+
+.user-form {
+    margin: 10px;
+}
+
+.user-form_username {
+    display: block;
+    flex: auto;
+}
+
+.user-form_error {
+    color: red;
+}
+
+.user-form_submit {
+    display: block;
+    margin: 10px 4px;
+    padding: 6px 10px;
+    flex: auto;
+    border-radius: 5px;
+    background-color: rgb(21 94 117);
+    color: white;
+    cursor: pointer;
+    font-size: larger;
+}
+
+.user-form_submit:hover {
+    background-color: rgb(32, 139, 172);
+}
+
+.form-card {
+    overflow: hidden;
+    margin: 5px 10px;
 }

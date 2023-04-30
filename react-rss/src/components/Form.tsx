@@ -52,7 +52,7 @@ export const FormModel = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="m-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="user-form">
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -64,10 +64,12 @@ export const FormModel = () => {
               validate: (value) => validName(value),
             },
           })}
-          className="block min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
+          className="user-form_username"
         />
         {errors.username && (
-          <span className="text-red-500">The length must be at least 2 characters in English</span>
+          <span className="user-form_error">
+            The length must be at least 2 small characters in English
+          </span>
         )}
         <br />
         <label htmlFor="birthday">Birthday </label>
@@ -79,10 +81,11 @@ export const FormModel = () => {
               validate: (value) => validDate(value),
             },
           })}
+          className="user-form_date"
         />
         <br />
         {errors.birthday && (
-          <span className="text-red-500">Choose date later then 1910, not tomorrow</span>
+          <span className="user-form_error">Choose date later then 1910, not tomorrow</span>
         )}
         <br />
         <label htmlFor="country">Country </label>
@@ -94,6 +97,7 @@ export const FormModel = () => {
               validate: (value) => validCountry(value),
             },
           })}
+          className="user-form_country"
         >
           <option value="">-</option>
           <option value="Narnia">Narnia</option>
@@ -101,7 +105,7 @@ export const FormModel = () => {
           <option value="Neverland">Neverland</option>
         </select>
         <br />
-        {errors.country && <span className="text-red-500">Choose your country</span>}
+        {errors.country && <span className="user-form_error">Choose your country</span>}
         <br />
         <div>
           <p>Gender:</p>
@@ -129,7 +133,7 @@ export const FormModel = () => {
             })}
           />
         </div>
-        {errors.gender && <span className="text-red-500">You need to choose your gender!</span>}
+        {errors.gender && <span className="user-form_error">You need to choose your gender!</span>}
         <br />
         <label>Upload file </label>
         <input
@@ -141,10 +145,11 @@ export const FormModel = () => {
               validate: (value) => validFile(value[0].name),
             },
           })}
+          className="user-form_file"
         />
         <br />
         {errors.file && (
-          <span className="text-red-500">Check your image file: jpg, jpeg or png</span>
+          <span className="user-form_error">Check your image file: jpg, jpeg or png</span>
         )}
         <br />
         <label>I agree to submit my data </label>
@@ -157,12 +162,9 @@ export const FormModel = () => {
             },
           })}
         />
-        {errors.agreement && <span className="text-red-500"> It is necessary!</span>}
+        {errors.agreement && <span className="user-form_error"> It is necessary!</span>}
         <br />
-        <button
-          type="submit"
-          className="block min-w-0 my-2 py-1 px-2 flex-auto rounded border border-solid hover:bg-cyan-500 hover:text-gray-200"
-        >
+        <button type="submit" className="user-form_submit">
           Submit
         </button>
       </form>

@@ -17,7 +17,7 @@ export const Search = () => {
   };
 
   return (
-    <form onSubmit={handleSearchSubmit} data-testid="search-form" className="flex justify-center">
+    <form onSubmit={handleSearchSubmit} data-testid="search-form" className="search-form">
       <div className="mb-3 xl:w-96">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <input

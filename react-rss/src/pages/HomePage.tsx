@@ -13,18 +13,16 @@ export default function Home() {
   return (
     <>
       <h2>Home</h2>
-      <div className="m-2">
+      <div>
         <Search />
       </div>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="justify-center">
+        <div className="product-container">
           <>
-            <h2 className="mx-10 text-2xl font-bold leading-7 text-gray-800 sm:truncate sm:text-3xl sm:tracking-tight">
-              Cards
-            </h2>
-            <div className="justify-items-center grid grid-cols-4 gap-3">
+            <h2>Cards</h2>
+            <div className="product-content">
               {products?.length ? (
                 products.map((item: IProduct) => <Card product={item} key={item.id} />)
               ) : (

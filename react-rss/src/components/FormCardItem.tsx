@@ -3,7 +3,7 @@ import { IUser } from './Form';
 
 export const FormCard = ({ username, birthday, country, gender, file }: IUser) => {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg m-4">
+    <div className="form-card">
       <div>
         <b>Username: </b> {username}
       </div>
