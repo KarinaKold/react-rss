@@ -25,13 +25,13 @@ export const Header = () => {
             <NavLink to="/">React app</NavLink>
           </span>
           <ul className="header__menu">
-            <li className="text-gray-200 hover:bg-cyan-700 hover:text-white rounded-md px-3 py-2 font-medium">
+            <li>
               <NavLink to="/">Home</NavLink>
             </li>
-            <li className="text-gray-200 hover:bg-cyan-700 hover:text-white rounded-md px-3 py-2 font-medium">
+            <li>
               <NavLink to="/form">Form</NavLink>
             </li>
-            <li className="text-gray-200 hover:bg-cyan-700 hover:text-white rounded-md px-3 py-2 font-medium">
+            <li>
               <NavLink to="/about">About</NavLink>
             </li>
           </ul>

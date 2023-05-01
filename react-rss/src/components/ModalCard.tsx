@@ -24,7 +24,7 @@ export default function ModalCard({ active, setActive, ID }: ProductModalProps) 
           <Loader />
         ) : (
           <>
-            <div>
+            <div className="product-modal__image">
               <img src={card.thumbnail} alt={card.title} />
             </div>
             <div className="product-modal__info">

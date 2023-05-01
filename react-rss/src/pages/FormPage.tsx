@@ -10,7 +10,7 @@ export const Form = () => {
     <>
       <h2>Form</h2>
       <FormModel />
-      <div className="justify-items-center grid grid-cols-4 gap-3">
+      <div className="form-card_list">
         {formList.map((item) => (
           <FormCard
             id={item.id}
