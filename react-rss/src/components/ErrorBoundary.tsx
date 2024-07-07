@@ -35,6 +35,9 @@ class ErrorBoundary extends Component<ErrorProps, ErrorState> {
       return (
         <div className="error-page">
           <h1>Something went wrong.</h1>
+          <button type="button" onClick={() => location.reload()}>
+            Reload
+          </button>
         </div>
       );
     }
