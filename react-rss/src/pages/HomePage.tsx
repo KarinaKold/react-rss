@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import { Search } from '../components/InputSearch';
 import Loader from '../components/Loader';
 import { getProducts } from '../api/api';
 import { IProduct } from '../types/types';
 import Card from '../components/Card';
+import Pagination from '../components/Pagination';
 
 export default function Home() {
   const [load, setLoad] = useState(true);
   const [input, setInput] = useState(localStorage.getItem('search') ?? '');
   const [products, setProducts] = useState<IProduct[]>([]);
+  const { page } = useParams<{ page: string }>();
+  const [currentPage, setCurrentPage] = useState<number>(page ? parseInt(page) : 1);
+  const navigate = useNavigate();
+  const [totalPages] = useState<number>(1);
 
   useEffect(() => {
     setLoad(true);
@@ -23,6 +30,11 @@ export default function Home() {
     };
     fetchProduct();
   }, [input]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    navigate(`/${newPage}`);
+  };
 
   return (
     <>
@@ -44,6 +56,11 @@ export default function Home() {
               ))}
             </div>
           </>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       )}
     </>
