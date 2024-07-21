@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { data } from '../api/data';
-import { Card } from './Card';
+import Card from './Card';
 
 describe('when rendered', () => {
   const productStab = data.products[0];

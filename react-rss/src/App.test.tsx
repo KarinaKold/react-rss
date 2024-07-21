@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import { Header } from './components/Header';
-import NotFoundPage from 'pages/NotFoundPage';
-import About from 'pages/AboutPage';
-import { Form } from 'pages/FormPage';
-import Home from 'pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import About from './pages/AboutPage';
+import { Form } from './pages/FormPage';
+import Home from './pages/HomePage';
 
 describe('App rendering', () => {
   test('should have header', () => {

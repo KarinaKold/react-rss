@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IProduct } from 'types/types';
+import { IProduct } from '../types/types';
 import ModalCard from './ModalCard';
 
 interface IProductProps {

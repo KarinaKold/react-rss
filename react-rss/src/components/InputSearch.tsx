@@ -1,22 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/store';
+import { changeSearchText } from '../store/searchSlice';
 
-type SearchProps = {
-  setInput: (text: string) => void;
-};
-
-export const Search = ({ setInput }: SearchProps) => {
-  const [searchValue, setSearchValue] = useState<string>(localStorage.getItem('search') || '');
-  const storageValue = useRef<string>();
-
-  useEffect(() => {
-    storageValue.current = searchValue;
-  }, [searchValue]);
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('search', storageValue.current || '');
-    };
-  }, []);
+export const Search = () => {
+  const searchTextSelector = useAppSelector((state) => state.search);
+  const [searchValue, setSearchValue] = useState(searchTextSelector.searchValue);
+  const dispatch = useAppDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -24,8 +13,7 @@ export const Search = ({ setInput }: SearchProps) => {
 
   const handleSearchSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    localStorage.setItem('search', searchValue || '');
-    setInput(searchValue);
+    dispatch(changeSearchText(searchValue));
   };
 
   return (
